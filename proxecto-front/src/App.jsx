@@ -1,12 +1,18 @@
 
+import TopMenu from './components/top-bar/topMenu';
+
 function App() {
   
 
   return (
-    <main>
-      <h1>Proxecto Andrés Hermelo Calvar</h1>
-    </main>
-  )
+    <>
+      <div className="App">
+        <h1 className="text-3xl font-bold underline">
+          Hello world!
+        </h1>
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
