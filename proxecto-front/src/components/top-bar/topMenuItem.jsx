@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 /**
- * Componente para un ítem del menú superior.
+ * ítem del menú superior.
  * Props:
  * - name: string (nombre a mostrar)
  * - link: string (URL de destino)

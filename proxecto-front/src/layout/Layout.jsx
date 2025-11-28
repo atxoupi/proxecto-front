@@ -19,7 +19,7 @@ export default function Layout() {
   return (
     <>
       <TopMenu items={itemsWithActive} />
-      <div style={{ paddingTop: '75px' }}>
+      <div>
         <Outlet />
       </div>
     </>
