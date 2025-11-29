@@ -8,6 +8,7 @@ import './index.css'
 import App from './App.jsx';
 import Sobremi from './pages/sobremi/index.jsx';
 import Layout from './layout/Layout.jsx';
+import LoginPage from './pages/login/index.jsx';
 
 const container = document.getElementById('root')
 
@@ -21,6 +22,7 @@ if (container) {
       children: [
         { index: true, element: <App /> },
         { path: 'sobremi', element: <Sobremi /> },
+        { path: 'login', element: <LoginPage /> },
         // Puedes añadir más rutas aquí
       ],
     },

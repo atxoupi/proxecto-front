@@ -1,5 +1,7 @@
 import React from 'react';
+
 import TopMenu from '../components/top-bar/topMenu';
+import Footer from '../components/footer/Footer';
 import { Outlet, useLocation } from 'react-router-dom';
 
 const menuItems = [
@@ -17,11 +19,12 @@ export default function Layout() {
     active: !item.external && location.pathname === item.link
   }));
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <TopMenu items={itemsWithActive} />
-      <div>
+      <div className="flex-1">
         <Outlet />
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
