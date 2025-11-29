@@ -1,31 +1,34 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import LoginPic from "../../assets/login_page_pic1.jpg";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrorMsg("");
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/login/", {
-        email,
-        password,
-      });
-
-      // Se a API devolve token ou usuario
+      const res = await axios.post(
+        "http://localhost:8000/api/auth/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+      localStorage.setItem("sessionid", res.data.sessionid);
       localStorage.setItem("token", res.data.token);
 
       console.log("Login correcto:", res.data);
-
-      // ⚠️ Aquí podes navegar a outra páxina
-      // navigate("/dashboard");
-
+      navigate("/admin");
     } catch (error) {
       console.error(error);
       setErrorMsg("Credenciales incorrectas ou erro no servidor");
@@ -43,7 +46,10 @@ const LoginPage = () => {
       className="flex flex-col items-center justify-center min-h-screen w-screen bg-cover bg-center bg-no-repeat rounded-tl-3xl rounded-tr-3xl p-4"
     >
       <h1 className="text-4xl text-[#d4af37] font-bold mb-8">Login</h1>
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-80">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded shadow-md w-80"
+      >
         {errorMsg && (
           <p className="bg-red-100 text-red-600 p-2 rounded text-center mb-3">
             {errorMsg}
