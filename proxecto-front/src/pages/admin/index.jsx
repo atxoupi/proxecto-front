@@ -1,31 +1,20 @@
 import React from "react";
 import AnimatedCard from "../../components/card/index.jsx";
-import axios from "axios";
 import CustomButton from "../../components/button/index.jsx";
-import { FaRightToBracket } from "react-icons/fa6";
+import { useLogoutMutation } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { FaRightToBracket } from "react-icons/fa6";
 
 const AdminPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [logout, { isLoading }] = useLogoutMutation();
+
   const handleLogout = async () => {
     try {
-      const csrftoken = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("csrftoken"))
-        ?.split("=")[1];
+      await logout().unwrap();
 
-      await axios.post(
-        "http://localhost:8000/api/auth/logout",
-        {},
-        {
-          withCredentials: true,
-          headers: {
-            "X-CSRFToken": csrftoken,
-          },
-        }
-      );
-      localStorage.removeItem("sessionid");
-      localStorage.removeItem("token");
       navigate("/login");
     } catch (error) {
       console.error("Erro no logout:", error);

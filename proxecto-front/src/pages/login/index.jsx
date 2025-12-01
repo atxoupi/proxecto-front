@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import LoginPic from "../../assets/login_page_pic1.jpg";
 import { useNavigate } from "react-router-dom";
+import { authApi, useLoginMutation } from "../../services/auth";
+import { useAppDispatch } from "../../app/hooks";
 import axios from "axios";
 
 const LoginPage = () => {
@@ -10,24 +12,17 @@ const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrorMsg("");
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      );
-      localStorage.setItem("sessionid", res.data.sessionid);
-      localStorage.setItem("token", res.data.token);
+      const res = await login({ email, password }).unwrap();
 
-      console.log("Login correcto:", res.data);
+      console.log("Login correcto:", res);
       navigate("/admin");
     } catch (error) {
       console.error(error);

@@ -1,9 +1,18 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useMeQuery } from "../services/auth";
 
 const ProtectedRoute = () => {
-  const isAuthenticated = !!localStorage.getItem("sessionid");
+  const { data: user, isLoading, isError } = useMeQuery();
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (isError || !user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
