@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import TopMenuItem from './topMenuItem';
 import { motion } from 'framer-motion';
+import Logo from '../../assets/logo1.svg';
 
 const TopMenu = ({ items }) => {
 	const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const TopMenu = ({ items }) => {
 		   <nav className="bg-white border-b border-gray-200 w-[75vw] rounded-b-xl shadow-md">
 			   <div className="px-4 sm:px-6 lg:px-8">
 				   <div className="flex justify-between h-16 items-center w-full">
-						<div className="flex-shrink-0 font-bold text-lg">Logo</div>
+						<div className="flex-shrink-0"><img src={Logo} alt="Logo" className="h-18 w-22" /></div>
 						<div className="hidden md:flex">
 							<ul className="flex space-x-2">
 								{items.map((item) => (
