@@ -2,6 +2,7 @@ import React from "react";
 import AnimatedCard from "../../components/card/index.jsx";
 import CustomButton from "../../components/button/index.jsx";
 import TallerCard from "../../components/tallerCard/index.jsx";
+import TallerModal from "./tallerModal.jsx";
 import { useLogoutMutation } from "../../services/auth";
 import { useGetTalleresQuery } from "../../services/apiTalleres.jsx";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +27,8 @@ const AdminPage = () => {
 
   return (
     <div className="w-full flex flex-col justify-center mt-20">
-      <div className="flex justify-end mb-10">
+      <div className="flex justify-end mb-10 gap-4">
+        <TallerModal />
         <CustomButton children="Logout" onClick={() => handleLogout()} icon={<FaRightToBracket />}>
         </CustomButton>
       </div>
@@ -45,12 +47,6 @@ const AdminPage = () => {
             image={taller.image}
           />  
         ))}
-        <TallerCard
-            key={10}
-            title="Probando Taller"
-            text="Descripción de prueba"
-            image="https://crisnuneztouceda.com/wp-content/uploads/2025/02/2.png"
-          />
       </div>
     </div>
     

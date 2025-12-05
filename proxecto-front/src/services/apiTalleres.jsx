@@ -1,43 +1,68 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+function getCookie(name) {
+    if (document.cookie && document.cookie !== '') {
+        const [cookie=null] =document.cookie.split(";"). map((c)=>{return c.split("=");}).filter(([key])=>key.trim() === name);
+        if (cookie) {
+            return cookie[1];
+        }
+    }
+    return "";
+}
 
 export const tallerApi = createApi({
-  reducerPath: 'tallerApi',
+  reducerPath: "tallerApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_TALLERES_URL,
-    credentials: 'include',
+    credentials: "include",
   }),
-  tagTypes: ['Talleres'],
+  tagTypes: ["Talleres"],
   endpoints: (builder) => ({
     getTalleres: builder.query({
-      query: () => '/',
-      providesTags: ['Talleres'],
+      query: () => "/",
+      providesTags: ["Talleres"],
     }),
     getTaller: builder.query({
       query: (id) => `/${id}/`,
-      providesTags: ['Talleres'],
+      providesTags: ["Talleres"],
     }),
     createTaller: builder.mutation({
       query: (taller) => ({
-        url: '/',
-        method: 'POST',
+        url: "/",
+        method: "POST",
         body: taller,
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
       }),
-      invalidatesTags: ['Talleres'],
+      invalidatesTags: ["Talleres"],
     }),
     updateTaller: builder.mutation({
       query: ({ id, ...taller }) => ({
         url: `/${id}/`,
-        method: 'PUT',
+        method: "PUT",
         body: taller,
       }),
-      invalidatesTags: ['Talleres'],
+      invalidatesTags: ["Talleres"],
     }),
     deleteTaller: builder.mutation({
       query: (id) => ({
         url: `/${id}/`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Talleres'],
+      invalidatesTags: ["Talleres"],
+    }),
+    uploadImage: builder.mutation({
+      query: (formData) => ({
+        url: "upload/",
+        method: "POST",
+        body: formData,
+        credentials: "include",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      }),
+      invalidatesTags: ["Talleres"],
     }),
   }),
 });
@@ -48,4 +73,5 @@ export const {
   useCreateTallerMutation,
   useUpdateTallerMutation,
   useDeleteTallerMutation,
+  useUploadImageMutation,
 } = tallerApi;
