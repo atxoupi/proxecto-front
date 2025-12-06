@@ -7,7 +7,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 const menuItems = [
   { name: 'Inicio', link: '/', external: false },
   { name: 'Sobre Mí', link: '/sobremi', external: false },
-  { name: 'ECS', link: '/ecs', external: false },
+  { name: 'Programas Educativos', link: '/ecs', external: false },
   { name: 'Talleres', link: '/talleres', external: false },
   { name: 'Contacto', link: '/contacto', external: false },
 ];
