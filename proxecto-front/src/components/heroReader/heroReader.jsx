@@ -16,7 +16,7 @@ export default function HeroHeader({ title, imageUrl }) {
       />
       <div className="absolute inset-0 flex items-center justify-center px-4 z-20">
         <h1
-          className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center"
+          className="hidden sm:block text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center"
           style={{
             textShadow: "3px 5px 9px rgba(0, 0, 0, 0.8)",
           }}
