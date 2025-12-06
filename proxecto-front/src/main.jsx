@@ -10,6 +10,7 @@ import Sobremi from "./pages/sobremi/index.jsx";
 import Layout from "./layout/Layout.jsx";
 import LoginPage from "./pages/login/index.jsx";
 import TalleresPage from "./pages/talleres/index.jsx";
+import EcsPage from "./pages/ecs/index.jsx";
 import AdminPage from "./pages/admin/index.jsx";
 import ProtectedRoute from "./components/protectedRoute.jsx";
 
@@ -27,6 +28,7 @@ if (container) {
         { path: "sobremi", element: <Sobremi /> },
         { path: "login", element: <LoginPage /> },
         { path: "talleres", element: <TalleresPage /> },
+        { path: "ecs", element: <EcsPage /> },
         {
           element: <ProtectedRoute />,
           children: [{ path: "admin", element: <AdminPage /> }],
