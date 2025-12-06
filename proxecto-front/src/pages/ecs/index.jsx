@@ -119,7 +119,7 @@ const EcsPage = () => {
           </div>
           <button
           onClick={() => window.open('https://www.estudiarconsentido.com', '_blank')}
-        className=" mt-4 bg-[#d4af37] font-semibold text-white p-2 rounded hover:bg-[#b5942f] transition-colors duration-200 flex items-center justify-center gap-2 w-full"
+        className="mt-4 bg-[#d4af37] font-semibold text-white p-2 rounded hover:bg-[#b5942f] transition-colors duration-200 flex items-center justify-center gap-2 w-full"
       >
         Saber más ...
       </button>
