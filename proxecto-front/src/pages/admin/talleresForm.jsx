@@ -95,7 +95,7 @@ const TalleresForm = ({ closeModal }) => {
 
         <label
           htmlFor="image-upload"
-          className="cursor-pointer inline-flex items-center justify-center w-full px-4 py-2 border border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-blue-500 hover:text-blue-500 transition"
+          className="cursor-pointer inline-flex items-center justify-center w-full px-4 py-2 border border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-[#d4af37] hover:text-[#d4af37] transition"
         >
           {imagenFile ? "Cambiar imagen" : "Seleccionar imagen"}
         </label>
