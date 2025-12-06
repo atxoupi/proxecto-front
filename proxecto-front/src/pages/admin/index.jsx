@@ -36,7 +36,7 @@ const AdminPage = () => {
         title="Edición"
         text="En esta sección puedes gestionar los talleres ofrecidos en la plataforma. Puedes crear nuevos talleres, actualizar la información de los existentes o eliminarlos si ya no son relevantes. Asegúrate de mantener la información actualizada para ofrecer la mejor experiencia a los usuarios."
       />
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-2 mb-6">
         {isLoadingTalleres && <p>Cargando talleres...</p>}
         {error && <p>Error al cargar los talleres.</p>}
         {talleres && talleres.map((taller) => (

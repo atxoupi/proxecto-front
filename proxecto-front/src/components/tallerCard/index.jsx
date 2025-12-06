@@ -7,7 +7,7 @@ export default function TallerCard({ title, text, image }) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-sm"
+      className="bg-white rounded-xl shadow-lg overflow-hidden w-full max-w-sm"
     >
       {image && (
         <img
