@@ -14,7 +14,7 @@ export default function TallerCard({ title, text, image }) {
           src={image}
           alt={title}
           referrerPolicy="no-referrer"
-          className="w-full h-40 object-cover"
+          className="w-full h-80 object-contain"
         />
       )}
       <div className="p-4">
