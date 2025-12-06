@@ -1,8 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-
-
 import ECSPIC from "../../assets/ecs_page_pic1.jpg";
 
 const EcsPage = () => {

@@ -2,13 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import TallerCard from "../../components/tallerCard/index.jsx";
 import { useGetTalleresQuery } from "../../services/apiTalleres.jsx";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
-import { FaRightToBracket } from "react-icons/fa6";
 
 const TalleresPage = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const {
     data: talleres,
     error,
