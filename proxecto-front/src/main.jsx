@@ -13,6 +13,9 @@ import TalleresPage from "./pages/talleres/index.jsx";
 import EcsPage from "./pages/ecs/index.jsx";
 import AdminPage from "./pages/admin/index.jsx";
 import ContactPage from "./pages/contact/index.jsx";
+import AvisoLegal from "./pages/avisoLegal/avisoLegal.jsx";
+import PoliticaPrivacidad from "./pages/politicaPrivacidad/index.jsx";
+import PoliticaCookies from "./pages/politicaCookies/index.jsx";
 import ProtectedRoute from "./components/protectedRoute.jsx";
 
 const container = document.getElementById("root");
@@ -31,6 +34,9 @@ if (container) {
         { path: "talleres", element: <TalleresPage /> },
         { path: "ecs", element: <EcsPage /> },
         { path: "contacto", element: <ContactPage /> },
+        { path: "aviso-legal", element: <AvisoLegal /> },
+        { path: "privacidad", element: <PoliticaPrivacidad /> },
+        { path: "cookies", element: <PoliticaCookies /> },
         {
           element: <ProtectedRoute />,
           children: [{ path: "admin", element: <AdminPage /> }],
