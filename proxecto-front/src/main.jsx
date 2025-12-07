@@ -12,6 +12,7 @@ import LoginPage from "./pages/login/index.jsx";
 import TalleresPage from "./pages/talleres/index.jsx";
 import EcsPage from "./pages/ecs/index.jsx";
 import AdminPage from "./pages/admin/index.jsx";
+import ContactPage from "./pages/contact/index.jsx";
 import ProtectedRoute from "./components/protectedRoute.jsx";
 
 const container = document.getElementById("root");
@@ -29,6 +30,7 @@ if (container) {
         { path: "login", element: <LoginPage /> },
         { path: "talleres", element: <TalleresPage /> },
         { path: "ecs", element: <EcsPage /> },
+        { path: "contacto", element: <ContactPage /> },
         {
           element: <ProtectedRoute />,
           children: [{ path: "admin", element: <AdminPage /> }],
