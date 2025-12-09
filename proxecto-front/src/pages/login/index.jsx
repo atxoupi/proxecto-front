@@ -4,7 +4,6 @@ import LoginPic from "../../assets/login_page_pic1.jpg";
 import { useNavigate } from "react-router-dom";
 import { authApi, useLoginMutation } from "../../services/auth";
 import { useAppDispatch } from "../../app/hooks";
-import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
