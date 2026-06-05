@@ -1,14 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 function getCookie(name) {
-    if (document.cookie && document.cookie !== '') {
-        const [cookie=null] =document.cookie.split(";"). map((c)=>{return c.split("=");}).filter(([key])=>key.trim() === name);
-        if (cookie) {
-            return cookie[1];
-        }
-    }
-    return "";
+  if (document.cookie && document.cookie !== '') {
+    const [cookie = null] = document.cookie
+      .split(";")
+      .map((c) => c.split("="))
+      .filter(([key]) => key.trim() === name);
+    if (cookie) return cookie[1];
+  }
+  return "";
 }
+
+const csrfHeaders = () => ({ "X-CSRFToken": getCookie("csrftoken") });
 
 export const tallerApi = createApi({
   reducerPath: "tallerApi",
@@ -31,9 +34,7 @@ export const tallerApi = createApi({
         url: "/",
         method: "POST",
         body: taller,
-        headers: {
-          "X-CSRFToken": getCookie("csrftoken"),
-        },
+        headers: csrfHeaders(),
       }),
       invalidatesTags: ["Talleres"],
     }),
@@ -42,6 +43,7 @@ export const tallerApi = createApi({
         url: `/${id}/`,
         method: "PUT",
         body: taller,
+        headers: csrfHeaders(),
       }),
       invalidatesTags: ["Talleres"],
     }),
@@ -49,6 +51,7 @@ export const tallerApi = createApi({
       query: (id) => ({
         url: `/${id}/`,
         method: "DELETE",
+        headers: csrfHeaders(),
       }),
       invalidatesTags: ["Talleres"],
     }),
@@ -58,11 +61,8 @@ export const tallerApi = createApi({
         method: "POST",
         body: formData,
         credentials: "include",
-        headers: {
-          "X-CSRFToken": getCookie("csrftoken"),
-        },
+        headers: csrfHeaders(),
       }),
-      invalidatesTags: ["Talleres"],
     }),
   }),
 });

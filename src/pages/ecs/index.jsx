@@ -15,7 +15,7 @@ const EcsPage = () => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
-      className="w-[75vw] min-h-[70vh] bg-white rounded-2xl shadow-md p-8 mt-20 mx-auto flex flex-col md:flex-row items-center gap-8"
+      className="w-[75vw] min-h-[70vh] bg-white rounded-2xl shadow-md p-8 mt-20 mx-auto flex flex-col md:flex-row items-start gap-8"
     >
       <div className="md:basis-[50%] w-full">
         <motion.h2

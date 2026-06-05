@@ -5,44 +5,56 @@ import { FaPlus } from "react-icons/fa6";
 import CustomButton from "../../components/button/index.jsx";
 import TalleresForm from './talleresForm.jsx';
 
-const TallerModal = () => {
-  const [showModal, setShowModal] = useState(false);
+const TallerModal = ({ taller, isOpen: isOpenProp, onClose }) => {
+  const [isOpenLocal, setIsOpenLocal] = useState(false);
+
+  const isControlled = isOpenProp !== undefined;
+  const isOpen = isControlled ? isOpenProp : isOpenLocal;
+
+  const handleClose = () => {
+    if (isControlled) {
+      onClose?.();
+    } else {
+      setIsOpenLocal(false);
+    }
+  };
 
   return (
     <>
-      <CustomButton
-        children="Nuevo Taller"
-        onClick={() => setShowModal(true)}
-        icon={<FaPlus />}
-      />
+      {!isControlled && (
+        <CustomButton
+          onClick={() => setIsOpenLocal(true)}
+          icon={<FaPlus />}
+        >
+          Nuevo Taller
+        </CustomButton>
+      )}
 
       <AnimatePresence>
-        {showModal && (
+        {isOpen && (
           <>
             <motion.div
               className="fixed inset-0 bg-black/40 z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setShowModal(false)}
+              onClick={handleClose}
             />
 
             <motion.div
               className="fixed top-0 right-0 h-full w-[380px] bg-white shadow-2xl z-50 p-6 flex flex-col"
               initial={{ x: "100%" }}
-              animate={{ x: 0 }} 
-              exit={{ x: "100%" }} 
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             >
               <div className="flex-1 overflow-auto">
-                <TalleresForm closeModal={() => setShowModal(false)} />
+                <TalleresForm closeModal={handleClose} taller={taller} />
               </div>
-
               <div className="pt-4 flex justify-end">
-                <CustomButton
-                  children="Cancelar"
-                  onClick={() => setShowModal(false)}
-                />
+                <CustomButton onClick={handleClose}>
+                  Cancelar
+                </CustomButton>
               </div>
             </motion.div>
           </>
