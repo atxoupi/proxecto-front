@@ -6,7 +6,7 @@ export default function AnimatedCard({ title, text, image }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="p-6 rounded-2xl shadow-md bg-white w-[75vw]"
+      className="p-6 rounded-2xl shadow-md bg-white w-full"
     >
       <h2 className="text-2xl text-[#d4af37] font-semibold mb-2 ">{title}</h2>
         <div>

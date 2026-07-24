@@ -3,15 +3,17 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 
 import { authApi } from '../services/auth';
 import { tallerApi } from '../services/apiTalleres';
+import { carouselApi } from '../services/apiCarousel';
 
 export const makestore = (preloadedState) => {
   const store = configureStore({
     reducer: {
       [authApi.reducerPath]: authApi.reducer,
       [tallerApi.reducerPath]: tallerApi.reducer,
+      [carouselApi.reducerPath]: carouselApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(authApi.middleware, tallerApi.middleware),
+      getDefaultMiddleware().concat(authApi.middleware, tallerApi.middleware, carouselApi.middleware),
     preloadedState,
   });
 

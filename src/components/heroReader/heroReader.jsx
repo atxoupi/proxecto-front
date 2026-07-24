@@ -7,12 +7,12 @@ export default function HeroHeader({ title, imageUrl }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }} 
-      className="relative w-screen h-[25vh] sm:h-[30vh] md:h-[40vh] lg:h-[55vh] overflow-hidden top-0">
-      
+      className="relative w-full h-[25vh] sm:h-[35vh] md:h-[45vh] lg:h-[55vh] overflow-hidden top-0">
+
       <img
         src={imageUrl}
         alt="Hero"
-        className="w-full h-full object-cover object-center scale-75"
+        className="w-full h-full object-cover object-center"
       />
       <div className="absolute inset-0 flex items-center justify-center px-4 z-20">
         <h1

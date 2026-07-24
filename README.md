@@ -1,16 +1,107 @@
-# React + Vite
+# proxecto-front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend SPA del proyecto **Coaching DAW** — interfaz web para gestión de talleres de coaching.
 
-Currently, two official plugins are available:
+Producción: [https://coaching.daw.iesrodeira.com](https://coaching.daw.iesrodeira.com)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## React Compiler
+| Tecnología | Versión |
+|---|---|
+| React | 19 |
+| Vite | 7 |
+| React Router | v7 |
+| Redux Toolkit + RTK Query | 2 |
+| Tailwind CSS | v4 |
+| Framer Motion | 12 |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Requisitos
 
-## Expanding the ESLint configuration
+- Node.js 20+
+- npm
+- Backend Django corriendo en `http://localhost:8000` (para desarrollo)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Instalación
+
+```bash
+npm install
+```
+
+## Comandos
+
+```bash
+npm run dev       # Servidor de desarrollo con HMR (proxy /api → localhost:8000)
+npm run build     # Build de producción en dist/
+npm run preview   # Previsualizar el build de producción localmente
+npm run lint      # Linting con ESLint
+```
+
+## Variables de entorno
+
+| Archivo | Uso |
+|---|---|
+| `.env` | Desarrollo — apunta a `http://localhost:8000` |
+| `.env.production` | Producción — usa rutas relativas `/api` |
+
+Variables clave consumidas por Vite:
+
+```
+VITE_API_AUTH_URL=http://localhost:8000/api/auth
+VITE_API_TALLERES_URL=http://localhost:8000/api/talleres
+```
+
+## Rutas
+
+| Ruta | Descripción |
+|---|---|
+| `/` | Página de inicio |
+| `/sobremi` | Sobre mí |
+| `/talleres` | Listado de talleres |
+| `/ecs` | ECS |
+| `/contacto` | Formulario de contacto |
+| `/login` | Inicio de sesión |
+| `/admin` | Panel de administración (protegida) |
+| `/aviso-legal` | Aviso legal |
+| `/privacidad` | Política de privacidad |
+| `/cookies` | Política de cookies |
+
+La ruta `/admin` está protegida por `ProtectedRoute`, que usa `useMeQuery()` para verificar sesión y redirige a `/login` si no hay usuario autenticado.
+
+## Arquitectura
+
+```
+src/
+├── app/           # Redux store y hooks tipados
+├── features/auth/ # Slice de autenticación
+├── services/      # RTK Query (authApi, tallerApi, apiCarousel)
+├── pages/         # Un directorio por ruta
+├── components/    # Componentes reutilizables
+└── layout/        # Layout principal (TopMenu + Footer + Outlet)
+```
+
+**API layer:** dos servicios RTK Query:
+- `authApi` — `POST /login`, `POST /logout`, `GET /me`
+- `tallerApi` — CRUD completo de talleres + upload de imágenes en `POST /upload/`
+
+Ambos leen el CSRF token de `document.cookie` y envían `credentials: 'include'`.
+
+**Autenticación:** basada en cookies de sesión. Django establece `sessionid` + `csrftoken`; el frontend lee el token CSRF de la cookie y lo envía como cabecera en peticiones mutantes.
+
+## Docker / Producción
+
+Build multi-etapa: Node 20 Alpine (build) → Nginx Alpine (runtime).
+
+`nginx.conf` sirve la SPA con fallback `try_files → /index.html`, hace proxy de `/api/` al servicio `backend` y permite cuerpos de petición de hasta 50 MB (para subida de imágenes).
+
+```bash
+# Desde el directorio raíz del monorepo
+docker compose up -d --build
+```
+
+## Convenciones
+
+- Todo el texto de la UI está en español.
+- Color de marca: dorado (`#d4af37`), definido como color personalizado de Tailwind.
+- Animaciones de entrada con Framer Motion en tarjetas y componentes de página.
+- Solo hooks — sin componentes de clase.
+- ESLint permite variables no usadas que empiezan por mayúscula (imports de componentes).

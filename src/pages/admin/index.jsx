@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import AnimatedCard from "../../components/card/index.jsx";
 import CustomButton from "../../components/button/index.jsx";
 import TallerCard from "../../components/tallerCard/index.jsx";
@@ -8,17 +8,42 @@ import {
   useGetTalleresQuery,
   useDeleteTallerMutation,
 } from "../../services/apiTalleres.jsx";
+import {
+  useGetCarouselQuery,
+  useUploadCarouselImageMutation,
+  useDeleteCarouselImageMutation,
+} from "../../services/apiCarousel.jsx";
 import { useNavigate } from "react-router-dom";
-import { FaRightToBracket, FaPencil, FaTrash } from "react-icons/fa6";
+import { FaRightToBracket, FaPencil, FaTrash, FaImage } from "react-icons/fa6";
 
 const AdminPage = () => {
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+
   const [logout, { isLoading: isLoggingOut }] = useLogoutMutation();
   const { data: talleres, error, isLoading: isLoadingTalleres } = useGetTalleresQuery();
   const [deleteTaller] = useDeleteTallerMutation();
+  const { data: carouselImages } = useGetCarouselQuery();
+  const [uploadCarouselImage, { isLoading: isUploading }] = useUploadCarouselImageMutation();
+  const [deleteCarouselImage] = useDeleteCarouselImageMutation();
 
   const [editingTaller, setEditingTaller] = useState(null);
   const [confirmingDelete, setConfirmingDelete] = useState(null);
+  const [confirmingDeleteCarousel, setConfirmingDeleteCarousel] = useState(null);
+
+  const handleCarouselUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("image", file);
+    await uploadCarouselImage(formData);
+    e.target.value = "";
+  };
+
+  const handleDeleteCarousel = async (id) => {
+    await deleteCarouselImage(id);
+    setConfirmingDeleteCarousel(null);
+  };
 
   const handleLogout = async () => {
     try {
@@ -102,6 +127,73 @@ const AdminPage = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Carrusel */}
+      <div className="mt-10 max-w-6xl mx-auto px-2 mb-10">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-[#d4af37]">Carrusel</h2>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isUploading}
+            className="flex items-center gap-2 text-sm font-medium border border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-white px-4 py-2 rounded-full transition disabled:opacity-50"
+          >
+            <FaImage size={13} />
+            {isUploading ? "Subiendo..." : "Añadir imagen"}
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleCarouselUpload}
+          />
+        </div>
+
+        {(!carouselImages || carouselImages.length === 0) && (
+          <p className="text-gray-400 text-sm">No hay imágenes en el carrusel.</p>
+        )}
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {carouselImages && carouselImages.map((item) => (
+            <div key={item.id} className="relative group rounded-xl overflow-hidden shadow-md bg-gray-100 aspect-video">
+              <img
+                src={item.image}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                {confirmingDeleteCarousel === item.id ? (
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="text-white text-xs font-medium">¿Eliminar?</span>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleDeleteCarousel(item.id)}
+                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs font-semibold"
+                      >
+                        Sí
+                      </button>
+                      <button
+                        onClick={() => setConfirmingDeleteCarousel(null)}
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-xs font-semibold"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setConfirmingDeleteCarousel(item.id)}
+                    className="text-white bg-red-500/80 hover:bg-red-500 p-2 rounded-full transition"
+                    aria-label="Eliminar imagen"
+                  >
+                    <FaTrash size={14} />
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <TallerModal
