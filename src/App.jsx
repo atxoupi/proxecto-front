@@ -53,7 +53,7 @@ function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center"
+            className="bg-white rounded-2xl shadow-lg text-center px-8 py-10"
           >
             <h2 className="text-3xl font-bold text-[#d4af37] mb-4">Bienvenida</h2>
             <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
