@@ -31,7 +31,7 @@ const Sobremi = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="max-w-5xl mx-auto px-4 sm:px-6"
+        className="w-[75vw] mx-auto px-4 sm:px-6"
       >
         <div className="relative rounded-2xl overflow-hidden h-72 sm:h-96 md:h-[28rem] bg-gray-100">
           <img

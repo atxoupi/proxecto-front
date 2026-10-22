@@ -43,7 +43,7 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen w-full mt-1">
+      <div className="min-h-screen w-full mt-20">
         <HeroHeader title="Cristina Núñez Touceda" imageUrl={mainpic} />
 
         <main className="w-[75vw] mx-auto flex flex-col gap-12 py-12">

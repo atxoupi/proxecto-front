@@ -26,7 +26,7 @@ const TalleresPage = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
-        className="bg-gray-100 rounded-xl shadow-lg w-[90vw] max-w-6xl min-h-[80vh] mx-auto mt-20 p-6 mb-8"
+        className="bg-gray-100 rounded-xl shadow-lg w-[75vw] min-h-[80vh] mx-auto mt-20 p-6 mb-8"
       >
         <h2 className="text-2xl font-bold mb-8 text-center text-[#d4af37]">
           Talleres
